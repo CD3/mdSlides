@@ -9,7 +9,7 @@ here = path.abspath(path.dirname(__file__))
 setup(
     name='mdSlides',
     license="MIT",
-    version="0.0.1",
+    version="0.0.2",
     description='A tool for generating slides from markdown files using different backends.',
     url='https://github.com/CD3/mdSlides',
     author='C.D. Clark III',
