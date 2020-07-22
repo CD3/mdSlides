@@ -6,7 +6,7 @@ import sys
 @click.command()
 @click.option("--engine","-e", default="pandoc:slidy", help="Slide engine to use.")
 @click.option("--list-engines", is_flag=True, help="List available slide engines.")
-@click.argument("input",type=click.Path(exists=True))
+@click.argument("input",type=click.Path(exists=True),nargs=-1)
 def main(engine,list_engines,input):
   if list_engines:
     print("Available Engines")
@@ -25,5 +25,6 @@ def main(engine,list_engines,input):
     print(f"Unreconized engine {engine}")
     sys.exit(1)
 
-  eng.build(click.format_filename(input))
+  for file in input:
+    eng.build(click.format_filename(file))
 
