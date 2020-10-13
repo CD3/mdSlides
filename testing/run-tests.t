@@ -31,3 +31,22 @@
   data
   index.html
   $ cd ..
+
+
+  $ cp -r ${TESTDIR}/Iframe ./
+  $ cd ./Iframe
+  $ ls
+  hello.html
+  iframe.md
+  $ mdSlides ./iframe.md
+  Generating slides: iframe.md -> iframe/index.html
+  copying hello.html to iframe
+  $ ls 
+  hello.html
+  iframe
+  iframe.md
+  $ ls ./iframe
+  data
+  hello.html
+  index.html
+  $ cd ..

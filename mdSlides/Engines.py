@@ -87,27 +87,30 @@ class Engine:
      print(f"There was an error {desc}")
      print(result.stdout.decode('utf-8'))
 
-  def get_images_from_html(self,file):
+  def get_sources_from_html(self,file):
     if not isinstance(file,pathlib.Path):
       file = pathlib.Path(file)
 
-    parser = Utils.ImageParser()
+    parser = Utils.TagWithSourceParser()
     parser.feed( file.read_text() )
-    return parser.images
+    return parser.sources
 
-  def copy_images_to_output(self,output_path):
-    images = self.get_images_from_html(output_path)
-    for image in images:
+  def copy_sources_to_output(self,output_path):
+    sources = self.get_sources_from_html(output_path)
+    for source in sources:
       # don't copy urls
-      if urllib.parse.urlparse(str(image)).scheme != "":
+      if urllib.parse.urlparse(str(source)).scheme != "":
         continue
       # don't copy absolute paths
-      if image.is_absolute():
+      if source.is_absolute():
         continue
 
-      print(f"copying {str(image)} to {str(output_path.parent)}")
-      os.makedirs(output_path.parent/image.parent, exist_ok=True)
-      shutil.copyfile(image,output_path.parent/image.parent/image.name)
+      if not source.exists():
+        continue
+
+      print(f"copying {str(source)} to {str(output_path.parent)}")
+      os.makedirs(output_path.parent/source.parent, exist_ok=True)
+      shutil.copyfile(source,output_path.parent/source.parent/source.name)
       
 
 
@@ -149,7 +152,7 @@ class PandocSlidy(Engine):
 
     super().run_cmd(cmd,"building the slides.")
 
-    super().copy_images_to_output(output)
+    super().copy_sources_to_output(output)
 
     return output
 
