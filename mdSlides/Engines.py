@@ -1,4 +1,6 @@
 import subprocess, pathlib, os, shutil, urllib
+from packaging import version
+import requests
 from . import Utils
 
 def is_exe(path):
@@ -113,22 +115,27 @@ class Engine:
       shutil.copyfile(source,output_path.parent/source.parent/source.name)
       
 
-
-
-
-class PandocSlidy(Engine):
-
+class HTMLEngine(Engine):
   def _get_default_output_filename(self,input):
     '''return default path to output file for a given input file.'''
     return "index.html"
 
   def _build(self,input,output):
+    output_dir = output.parent
+    if not (output_dir/"MathJax.js").exists():
+      r = requests.get("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js",allow_redirects=False)
+      (output_dir/"MathJax.js").write_text(r.content.decode('utf-8'))
 
+
+class PandocSlidy(HTMLEngine):
+
+  def _build(self,input,output):
+    super()._build(input,output)
     output_dir = output.parent
 
-    if not (output_dir/"data").exists():
-      super().run_cmd(['git','clone', 'https://github.com/slideshow-templates/slideshow-slidy.git',str(output.parent/"data")],"fetching slidy data files")
-      shutil.rmtree(str(output.parent/"data/.git"))
+    if not (output_dir/"slidy").exists():
+      super().run_cmd(['git','clone', 'https://github.com/slideshow-templates/slideshow-slidy.git',str(output.parent/"slidy")],"fetching slidy data files")
+      shutil.rmtree(str(output.parent/"slidy/.git"))
 
 
     # pandoc options:
@@ -142,13 +149,13 @@ class PandocSlidy(Engine):
     cmd.append("-o")
     cmd.append(str(output))
     cmd.append("--standalone")
-    cmd.append("--mathjax")
+    cmd.append("--mathjax=https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_CHTML-full")
     cmd.append("--to")
     cmd.append("slidy")
     cmd.append("--css")
     cmd.append("slidy_extra.css")
     cmd.append("--variable")
-    cmd.append("slidy-url=./data")
+    cmd.append("slidy-url=./slidy")
 
     super().run_cmd(cmd,"building the slides.")
 
@@ -177,5 +184,51 @@ class PandocPowerPoint(Engine):
       cmd.append(str(template_file))
 
     super().run_cmd(cmd,"building the slides.")
+
+    return output
+
+
+class PandocRevealJS(HTMLEngine):
+
+  def _build(self,input,output):
+    super()._build(input,output)
+    output_dir = output.parent
+
+    if not (output_dir/"reveal.js").exists():
+      super().run_cmd(['git','clone', 'https://github.com/hakimel/reveal.js.git',str(output.parent/"reveal.js")],"fetching reveal.js data files")
+      out = subprocess.check_output(["pandoc","--version"]).decode('utf-8')
+      # check pandoc version to see if we can use latest version of revealjs
+      version_string = out.split("\n")[0].split()[1]
+      if version.parse(version_string) < version.parse("2.9.2.2"):
+        with Utils.working_directory(output_dir/"reveal.js"):
+          super().run_cmd(['git','checkout', '3.9.2'],
+              desc=f"Pandoc version {version_string} only supports revealjs 3. Checking out 3.9.2")
+
+      shutil.rmtree(str(output.parent/"reveal.js/.git"))
+
+
+    # pandoc options:
+    # --self-contained does not work with mathjax
+    # --standalone creates a file with header and footer
+    # --mathjax uses mathjax javascript to render latex equation. requires an internet connection
+    # --to is the format that will be written to
+    cmd = list()
+    cmd.append("pandoc")
+    cmd.append(str(input))
+    cmd.append("-o")
+    cmd.append(str(output))
+    cmd.append("--standalone")
+    cmd.append("--mathjax=https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_CHTML-full")
+    cmd.append("--to")
+    cmd.append("revealjs")
+    # cmd.append("--css")
+    # cmd.append("slidy_extra.css")
+    # cmd.append("--variable")
+    # cmd.append("revealjs-url=./reveal.js/dist")
+
+
+    super().run_cmd(cmd,"building the slides.")
+
+    super().copy_sources_to_output(output)
 
     return output

@@ -12,6 +12,7 @@ def main(engine,list_engines,input):
     print("Available Engines")
     print("  pandoc:slidy")
     print("  pandoc:powerpoint")
+    print("  pandoc:revealjs")
     sys.exit(0)
 
   eng = None
@@ -20,6 +21,8 @@ def main(engine,list_engines,input):
         eng = Engines.PandocSlidy()
     if engine.endswith(":powerpoint") or engine.endswith(":ppt"):
         eng = Engines.PandocPowerPoint()
+    if engine.endswith(":revealjs") or engine.endswith(":reveal"):
+        eng = Engines.PandocRevealJS()
 
   if eng is None:
     print(f"Unreconized engine {engine}")

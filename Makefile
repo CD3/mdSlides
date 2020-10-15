@@ -3,6 +3,11 @@ test-install:
 	. _test-install-virtualenv/bin/activate && pip install pytest
 	. _test-install-virtualenv/bin/activate && pip install .
 
+dev-install:
+	virtualenv _dev-install-virtualenv
+	. _dev-install-virtualenv/bin/activate && pip install pytest
+	. _dev-install-virtualenv/bin/activate && pip install -e .
+
 build-package:
 	pipenv run python setup.py sdist
 

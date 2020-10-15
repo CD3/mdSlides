@@ -10,7 +10,7 @@ setup(
     url='https://github.com/CD3/mdSlides',
     author='C.D. Clark III',
     packages=find_packages(),
-    install_requires=['click'],
+    install_requires=['click','requests'],
     entry_points='''
     [console_scripts]
     mdSlides=mdSlides.scripts.mdSlides:main
