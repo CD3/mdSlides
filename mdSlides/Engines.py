@@ -12,7 +12,7 @@ def is_exe(path):
 class Engine:
   '''
   A base class that implements common code for all engines. To add a new engine, one just needs to derive
-  from this class 
+  from this class
   '''
 
   def __init__(self, preprocess_script_name=None, postprocess_script_name=None):
@@ -31,7 +31,7 @@ class Engine:
       self.run_cmd(cmd)
 
       return processed_input
-    
+
     return input
 
   def postprocess(self,output):
@@ -113,7 +113,7 @@ class Engine:
       print(f"copying {str(source)} to {str(output_path.parent)}")
       os.makedirs(output_path.parent/source.parent, exist_ok=True)
       shutil.copyfile(source,output_path.parent/source.parent/source.name)
-      
+
 
 class HTMLEngine(Engine):
   def _get_default_output_filename(self,input):
@@ -149,7 +149,7 @@ class PandocSlidy(HTMLEngine):
     cmd.append("-o")
     cmd.append(str(output))
     cmd.append("--standalone")
-    cmd.append("--mathjax=https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_CHTML-full")
+    cmd.append("--mathjax=http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
     cmd.append("--to")
     cmd.append("slidy")
     cmd.append("--css")
@@ -164,7 +164,7 @@ class PandocSlidy(HTMLEngine):
     return output
 
 
-  
+
 class PandocPowerPoint(Engine):
 
   def _get_default_output_filename(self,input):
