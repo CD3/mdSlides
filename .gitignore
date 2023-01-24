@@ -8,3 +8,4 @@ venv-devel/
 .pytest_cache/
 mdSlides.egg-info/
 _*/
+poetry.lock
