@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mdslides"
-version = "0.0.5"
+version = "0.0.6"
 description = "A tool for generating slides from markdown files using different backends."
 authors = ["CD Clark III <clifton.clark@gmail.com>"]
 license = "MIT"
