@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "myslides"
+name = "mdslides"
 version = "0.0.5"
 description = "A tool for generating slides from markdown files using different backends."
 authors = ["CD Clark III <clifton.clark@gmail.com>"]
