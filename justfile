@@ -2,5 +2,5 @@ default:
   just --list
 
 test:
-  cd testing && poetry run cram *.t
+  cd testing && rye run cram *.t
 

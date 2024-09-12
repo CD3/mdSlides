@@ -1,14 +1,15 @@
   $ cp -r ${TESTDIR}/Simple ./
   $ ls ./Simple
   simple.md
-  $ mdSlides ./Simple/simple.md
+  $ mdslides ./Simple/simple.md
   Generating slides: Simple/simple.md -> Simple/simple/index.html
   $ ls ./Simple
   simple
   simple.md
   $ ls ./Simple/simple
-  data
+  MathJax.js
   index.html
+  slidy
 
 
   $ cp -r ${TESTDIR}/Processing ./
@@ -17,7 +18,7 @@
   postprocess
   preprocess
   slides.md
-  $ mdSlides ./slides.md
+  $ mdslides ./slides.md
   Pre-processing: slides.md -> slides-process.md
   Generating slides: slides-process.md -> slides/index.html
   Post-processing: slides/index.html
@@ -28,8 +29,9 @@
   slides-process.md
   slides.md
   $ ls ./slides
-  data
+  MathJax.js
   index.html
+  slidy
   $ cd ..
 
 
@@ -38,7 +40,7 @@
   $ ls
   hello.html
   iframe.md
-  $ mdSlides ./iframe.md
+  $ mdslides ./iframe.md
   Generating slides: iframe.md -> iframe/index.html
   copying hello.html to iframe
   $ ls 
@@ -46,7 +48,8 @@
   iframe
   iframe.md
   $ ls ./iframe
-  data
+  MathJax.js
   hello.html
   index.html
+  slidy
   $ cd ..
