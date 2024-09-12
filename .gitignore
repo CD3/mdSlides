@@ -9,3 +9,6 @@ venv-devel/
 mdSlides.egg-info/
 _*/
 poetry.lock
+.python-version
+requirements-dev.lock
+requirements.lock
