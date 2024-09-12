@@ -2,6 +2,10 @@
 name = "mdslides"
 version = "0.1.0"
 description = "A tool for generating slides from markdown files using different backends."
+maintainers = [
+{name="CD Clark III", email="clifton.clark@gmail.com"}
+]
+
 dependencies = [
     "click>=8.1.7",
     "requests>=2.32.3",
