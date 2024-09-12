@@ -1,5 +1,4 @@
 import subprocess, pathlib, os, shutil, urllib
-from packaging import version
 import requests
 from . import Utils
 
@@ -172,7 +171,7 @@ class PandocPowerPoint(Engine):
     return str(input.stem)+".pptx"
 
   def _build(self,input,output):
-    template_file = pathlib.Path("mdSlides-template.pptx")
+    template_file = pathlib.Path("mdslides-template.pptx")
 
     cmd = list()
     cmd.append("pandoc")

@@ -1,4 +1,4 @@
-from mdSlides import Engines
+from mdslides import Engines
 import click
 import pathlib
 import sys
