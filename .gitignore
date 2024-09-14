@@ -12,3 +12,4 @@ poetry.lock
 .python-version
 requirements-dev.lock
 requirements.lock
+testing/run-tests.t.err

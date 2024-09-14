@@ -31,5 +31,5 @@ allow-direct-references = true
 packages = ["src/mdslides"]
 
 [project.scripts]
-"mdslides" = "mdslides.scripts.mdslides:main"
-"mdSlides" = "mdslides.scripts.mdslides:main"
+"mdslides" = "mdslides.__main__:main"
+"mdSlides" = "mdslides.__main__:main"
