@@ -134,13 +134,7 @@ class HTMLEngine(Engine):
         return "index.html"
 
     def _build(self, input, output):
-        output_dir = output.parent
-        if not (output_dir / "MathJax.js").exists():
-            r = requests.get(
-                "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js",
-                allow_redirects=False,
-            )
-            (output_dir / "MathJax.js").write_text(r.content.decode("utf-8"))
+        pass
 
 
 class PandocSlidy(HTMLEngine):
@@ -171,9 +165,7 @@ class PandocSlidy(HTMLEngine):
         cmd.append("-o")
         cmd.append(str(output))
         cmd.append("--standalone")
-        cmd.append(
-            "--mathjax=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-        )
+        cmd.append( "--mathjax")
         cmd.append("--to")
         cmd.append("slidy")
         cmd.append("--css")
@@ -247,9 +239,7 @@ class PandocRevealJS(HTMLEngine):
         cmd.append("-o")
         cmd.append(str(output))
         cmd.append("--standalone")
-        cmd.append(
-            "--mathjax=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-        )
+        cmd.append("--mathjax")
         cmd.append("--to")
         cmd.append("revealjs")
         # cmd.append("--css")
