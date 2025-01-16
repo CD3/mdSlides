@@ -102,6 +102,15 @@ class Engine:
             print(f"There was an error {desc}")
             print(result.stdout.decode("utf-8"))
 
+
+class HTMLEngine(Engine):
+    def _get_default_output_filename(self, input):
+        """return default path to output file for a given input file."""
+        return "index.html"
+
+    def _build(self, input, output):
+        pass
+
     def get_sources_from_html(self, file):
         if not isinstance(file, pathlib.Path):
             file = pathlib.Path(file)
@@ -126,15 +135,6 @@ class Engine:
             print(f"copying {str(source)} to {str(output_path.parent)}")
             os.makedirs(output_path.parent / source.parent, exist_ok=True)
             shutil.copyfile(source, output_path.parent / source.parent / source.name)
-
-
-class HTMLEngine(Engine):
-    def _get_default_output_filename(self, input):
-        """return default path to output file for a given input file."""
-        return "index.html"
-
-    def _build(self, input, output):
-        pass
 
 
 class PandocSlidy(HTMLEngine):
