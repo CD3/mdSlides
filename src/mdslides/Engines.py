@@ -165,7 +165,7 @@ class PandocSlidy(HTMLEngine):
         cmd.append("-o")
         cmd.append(str(output))
         cmd.append("--standalone")
-        cmd.append( "--mathjax")
+        cmd.append("--mathjax")
         cmd.append("--to")
         cmd.append("slidy")
         cmd.append("--css")
