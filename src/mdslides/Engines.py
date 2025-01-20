@@ -36,7 +36,7 @@ class Engine:
     def preprocess(self, input):
         if is_exe(self.preprocess_script):
             input_dir = input.parent
-            processed_input = input_dir / f"{str(input.stem)}-process.md"
+            processed_input = input_dir / f"{str(input.stem)}-preprocessed.md"
 
             print(f"Pre-processing: {input} -> {processed_input}")
 
