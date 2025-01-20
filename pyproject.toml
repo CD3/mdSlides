@@ -1,6 +1,6 @@
 [project]
 name = "mdslides"
-version = "0.1.4"
+version = "0.1.5"
 description = "A tool for generating slides from markdown files using different backends."
 maintainers = [
 {name="CD Clark III", email="clifton.clark@gmail.com"}
