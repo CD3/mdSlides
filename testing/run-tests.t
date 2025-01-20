@@ -7,7 +7,6 @@
   simple
   simple.md
   $ ls ./Simple/simple
-  MathJax.js
   index.html
   slidy
 
@@ -19,17 +18,16 @@
   preprocess
   slides.md
   $ mdslides ./slides.md
-  Pre-processing: slides.md -> slides-process.md
-  Generating slides: slides-process.md -> slides/index.html
+  Pre-processing: slides.md -> slides-preprocessed.md
+  Generating slides: slides-preprocessed.md -> slides/index.html
   Post-processing: slides/index.html
   $ ls 
   postprocess
   preprocess
   slides
-  slides-process.md
+  slides-preprocessed.md
   slides.md
   $ ls ./slides
-  MathJax.js
   index.html
   slidy
   $ cd ..
@@ -48,7 +46,6 @@
   iframe
   iframe.md
   $ ls ./iframe
-  MathJax.js
   hello.html
   index.html
   slidy
